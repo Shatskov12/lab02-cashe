@@ -31,7 +31,7 @@ class tester {
   void RandomTest();
   void ReversTest();
   void SetBufs();
-  int GetSizeBufs();
+  //int GetSizeBufs();
   std::stringstream Print(int, int, int);
 
 

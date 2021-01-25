@@ -2,6 +2,16 @@
 
 #include <gtest/gtest.h>
 
+#include "iostream"
+#include "Cashe.hpp"
+
 TEST(Example, EmptyTest) {
-    EXPECT_TRUE(true);
+  tester test;
+  test.SetBufs();
+  test.StraightTest();
+  std::cout << test;
+  test.ReversTest();
+  //std::cout << test;
+  test.RandomTest();
+  //std::cout << test;
 }

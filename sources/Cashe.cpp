@@ -24,7 +24,7 @@ void tester::StraightTest() {
     auto EndTime = std::chrono::steady_clock::now();
     DurationTest.push_back(std::chrono::duration_cast<std::chrono::microseconds>(EndTime - StartTime).count()/Repeat);
     delete[] arr;
-    Print( j ,size , DurationTest[j-1] );
+    tester::Print( j ,size , DurationTest[j-1] );
   }
 
 }
@@ -88,7 +88,7 @@ void tester::RandomTest() {
 
 }
 
-int tester::GetSizeBufs() { return BufsSize.size();}
+//int tester::GetSizeBufs() { return BufsSize.size();}
 
 std::stringstream tester::Print(int a, int b, int d){
     std::stringstream ss;

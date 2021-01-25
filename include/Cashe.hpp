@@ -7,27 +7,32 @@
 #include <random>
 #include <string>
 #include <vector>
+#include <sstream>
+//#include <algorithm>
 
 
-const int CacheSize[3]{128 , 512 , 3072};
-const int Repeat = 1000;
-const int ByteInInt = 4;
-const int Step = 16;
-const int ByteInKb = 1024;
 
-
-std::string NameTest;
-std::vector<int> BufsSize;
-std::vector<int> DurationTest;
 class tester {
 
  private:
+  const int CacheSize[3]{128 , 512 , 3072};
+  const int Repeat = 1000;
+  const int ByteInInt = 4;
+  const int Step = 16;
+
+
+
+  std::string NameTest;
+  std::vector<int> BufsSize;
+  std::vector<int> DurationTest;
 
  public:
   void StraightTest();
   void RandomTest();
   void ReversTest();
   void SetBufs();
+  int GetSizeBufs();
+  std::stringstream Print(int, int, int);
 
 
 

@@ -8,6 +8,8 @@ void tester::StraightTest() {
   [[maybe_unused]] int k;
 
   for (const int &size : BufsSize) {
+    int j = 0;
+    ++j;
     int *arr = new int[size / ByteInInt];
 
     for (int i = 0; i < size / ByteInInt; i += Step) {
@@ -22,7 +24,9 @@ void tester::StraightTest() {
     auto EndTime = std::chrono::steady_clock::now();
     DurationTest.push_back(std::chrono::duration_cast<std::chrono::microseconds>(EndTime - StartTime).count()/Repeat);
     delete[] arr;
+    Print( j ,size , DurationTest[j-1] );
   }
+
 }
 
 void tester::ReversTest() {
@@ -31,6 +35,8 @@ void tester::ReversTest() {
   [[maybe_unused]] int k;
 
   for (const int &size : BufsSize) {
+    int j = 0;
+    ++j;
     int *arr = new int[size / ByteInInt];
 
     for (int i = 0; i < size / ByteInInt; i += Step) {
@@ -45,9 +51,11 @@ void tester::ReversTest() {
     auto EndTime = std::chrono::steady_clock::now();
     DurationTest.push_back(std::chrono::duration_cast<std::chrono::microseconds>(EndTime - StartTime).count()/Repeat);
     delete[] arr;
+    Print( j , size , DurationTest[j-1] );
   }
 
 }
+
 
 void tester::RandomTest() {
   NameTest = "Random";
@@ -55,8 +63,10 @@ void tester::RandomTest() {
   [[maybe_unused]] int k;
 
   for(const int &size : BufsSize){
+    int j = 0;
+    ++j;
     int *arr = new int[size / ByteInInt];
-    std::vector<int> IndexRandomBufs:
+    std::vector<int> IndexRandomBufs;
     for (int i = 0; i < size / ByteInInt; i += Step) {
       IndexRandomBufs.push_back(i);
       k = arr[i];
@@ -73,7 +83,32 @@ void tester::RandomTest() {
     auto EndTime = std::chrono::steady_clock::now();
     DurationTest.push_back(std::chrono::duration_cast<std::chrono::microseconds>(EndTime - StartTime).count()/Repeat);
     delete[] arr;
-
+    Print( j , size , DurationTest[j-1]);
   }
+
+}
+
+int tester::GetSizeBufs() { return BufsSize.size();}
+
+std::stringstream tester::Print(int a, int b, int d){
+    std::stringstream ss;
+    ss<< "investigation:\n"
+      << "\ttravel_variant: " << NameTest << "\n"
+      <<"experiments:"
+      <<"- experiment:"
+      <<"\tnumber"<<a
+      <<"\tinput_data"
+      <<"\t\tbuffer_size:"<<b
+      <<"\tresults:"
+      <<"\t\tduration:"<<d;
+    return ss;
+}
+
+void tester::SetBufs() {
+  BufsSize.push_back(CacheSize[0]/2);
+  for (int i = CacheSize[0]; i < 3*CacheSize[2]/2; i *= 2){
+    BufsSize.push_back(i);
+  }
+  BufsSize.push_back(3*CacheSize[0]/2);
 
 }

@@ -27,16 +27,12 @@ class tester {
   std::vector<int> DurationTest;
 
  public:
-  void StraightTest();
-  void RandomTest();
-  void ReversTest();
+  std::stringstream StraightTest();
+  std::stringstream RandomTest();
+  std::stringstream ReversTest();
   void SetBufs();
   //int GetSizeBufs();
-  std::stringstream Print(int, int, int);
-
-
-
-
+  std::string Print(int, int, int);
 };
 
 

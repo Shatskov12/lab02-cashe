@@ -2,13 +2,15 @@
 
 #include <Cashe.hpp>
 
-void tester::StraightTest() {
+std::stringstream tester::StraightTest() {
   NameTest = "Straight";
   DurationTest.clear();
   [[maybe_unused]] int k;
+  std::stringstream out;
+  int j = 0;
 
   for (const int &size : BufsSize) {
-    int j = 0;
+
     ++j;
     int *arr = new int[size / ByteInInt];
 
@@ -22,20 +24,25 @@ void tester::StraightTest() {
       }
     }
     auto EndTime = std::chrono::steady_clock::now();
-    DurationTest.push_back(std::chrono::duration_cast<std::chrono::microseconds>(EndTime - StartTime).count()/Repeat);
+    DurationTest.push_back(std::chrono::duration_cast<std::chrono::nanoseconds>(EndTime - StartTime).count()/Repeat);
     delete[] arr;
-    tester::Print( j ,size , DurationTest[j-1] );
-  }
+    out << tester::Print( j ,size , DurationTest[j-1] );
 
+  }
+  //for (const int &size : DurationTest){
+  //  out << DurationTest[size] << std::endl;
+  //}
+  return out ;
 }
 
-void tester::ReversTest() {
+std::stringstream tester::ReversTest() {
   NameTest = "Revers";
   DurationTest.clear();
   [[maybe_unused]] int k;
+  std::stringstream out;
+  int j = 0;
 
   for (const int &size : BufsSize) {
-    int j = 0;
     ++j;
     int *arr = new int[size / ByteInInt];
 
@@ -49,21 +56,24 @@ void tester::ReversTest() {
       }
     }
     auto EndTime = std::chrono::steady_clock::now();
-    DurationTest.push_back(std::chrono::duration_cast<std::chrono::microseconds>(EndTime - StartTime).count()/Repeat);
+    DurationTest.push_back(std::chrono::duration_cast<std::chrono::nanoseconds>(EndTime - StartTime).count()/Repeat);
     delete[] arr;
-    Print( j , size , DurationTest[j-1] );
+    out << tester::Print( j ,size , DurationTest[j-1] );
   }
 
+  return out;
 }
 
 
-void tester::RandomTest() {
+std::stringstream tester::RandomTest() {
   NameTest = "Random";
   DurationTest.clear();
   [[maybe_unused]] int k;
+  std::stringstream out;
+  int j = 0;
 
   for(const int &size : BufsSize){
-    int j = 0;
+
     ++j;
     int *arr = new int[size / ByteInInt];
     std::vector<int> IndexRandomBufs;
@@ -81,27 +91,28 @@ void tester::RandomTest() {
       }
     }
     auto EndTime = std::chrono::steady_clock::now();
-    DurationTest.push_back(std::chrono::duration_cast<std::chrono::microseconds>(EndTime - StartTime).count()/Repeat);
+    DurationTest.push_back(std::chrono::duration_cast<std::chrono::nanoseconds>(EndTime - StartTime).count()/Repeat);
     delete[] arr;
-    Print( j , size , DurationTest[j-1]);
+    out << tester::Print( j ,size , DurationTest[j-1] );
   }
 
+  return out;
 }
 
 //int tester::GetSizeBufs() { return BufsSize.size();}
 
-std::stringstream tester::Print(int a, int b, int d){
+std::string tester::Print(int a, int b, int d){
     std::stringstream ss;
     ss<< "investigation:\n"
       << "\ttravel_variant: " << NameTest << "\n"
-      <<"experiments:"
-      <<"- experiment:"
-      <<"\tnumber"<<a
-      <<"\tinput_data"
-      <<"\t\tbuffer_size:"<<b
-      <<"\tresults:"
-      <<"\t\tduration:"<<d;
-    return ss;
+      <<"experiments:\n"
+      <<"- experiment:\n"
+      <<"\tnumber"<<a<<"\n"
+      <<"\tinput_data\n"
+      <<"\t\tbuffer_size:"<<b<<"Kb"<<"\n"
+      <<"\tresults:\n"
+      <<"\t\tduration:"<<d<<" Nanoseconds"<<std::endl<<std::endl;
+    return ss.str();
 }
 
 void tester::SetBufs() {
@@ -109,6 +120,6 @@ void tester::SetBufs() {
   for (int i = CacheSize[0]; i < 3*CacheSize[2]/2; i *= 2){
     BufsSize.push_back(i);
   }
-  BufsSize.push_back(3*CacheSize[0]/2);
+  BufsSize.push_back(3*CacheSize[2]/2);
 
 }

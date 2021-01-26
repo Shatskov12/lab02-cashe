@@ -9,9 +9,9 @@ TEST(Example, EmptyTest) {
   tester test;
   test.SetBufs();
   test.StraightTest();
-  std::cout << test;
+  std::cout << test.StraightTest().str();
   test.ReversTest();
-  //std::cout << test;
+  std::cout << test.ReversTest().str();
   test.RandomTest();
-  //std::cout << test;
+  std::cout << test.RandomTest().str();
 }
